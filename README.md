@@ -3,473 +3,510 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Türkiye Gezi Rehberi - 15 Şehir</title>
+<title>Kitap Dünyası</title>
 <style>
-  body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f4f7f9; color: #333; }
-  h1, h2 { color: #064663; }
-  .container { max-width: 1200px; margin: auto; padding: 20px; }
-  .city-section { margin: 50px 0; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
-  .city-section img { width: 100%; border-radius: 10px; max-height: 300px; object-fit: cover; }
-  .place-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
-  .place-card { background: #fff; border-radius: 10px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); overflow: hidden; }
-  .place-card img { width: 100%; height: 160px; object-fit: cover; }
-  .place-card div { padding: 15px; }
-  .place-card h3 { color: #064663; margin-bottom: 10px; }
-  .place-card p { font-size: 0.9rem; color: #555; }
-  footer { text-align: center; padding: 20px; background: #042a2b; color: #fff; }
-  .search { text-align: center; margin: 1rem; }
-  .search input { width: 50%; padding: 0.5rem; font-size: 1rem; border-radius: 5px; border: 1px solid #ccc; }
+  /* Reset ve Temel */
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background: #f7f4ef;
+    color: #333;
+    line-height: 1.5;
+  }
+  a {
+    text-decoration: none;
+    color: #2c3e50;
+  }
+  a:hover {
+    color: #e67e22;
+  }
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+  }
+  /* Header */
+  header {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+  }
+  nav ul li {
+    padding: 6px 0;
+  }
+  nav ul li a {
+    font-weight: 600;
+    color: white;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #e67e22;
+  }
+  .search-bar {
+    position: relative;
+  }
+  .search-bar input[type="search"] {
+    padding: 6px 30px 6px 10px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+  }
+  .search-bar button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #2c3e50;
+    font-size: 1.1rem;
+  }
+  /* Hero */
+  .hero {
+    background: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1400&q=80') no-repeat center/cover;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+    box-shadow: inset 0 0 0 1000px rgba(44,62,80,0.6);
+  }
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+  }
+  .hero p {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    max-width: 600px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+  }
+  .hero button {
+    background: #e67e22;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(230,126,34,0.5);
+    transition: background 0.3s;
+  }
+  .hero button:hover {
+    background: #cf711c;
+  }
+  /* Kitap Kartları */
+  .books-section {
+    margin: 50px 0;
+  }
+  .section-title {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-weight: 700;
+  }
+  .book-list {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .book-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 220px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .book-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+  }
+  .book-content {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .book-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #34495e;
+  }
+  .book-author {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 12px;
+  }
+  .book-desc {
+    font-size: 0.9rem;
+    flex-grow: 1;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  .book-price {
+    font-weight: 700;
+    color: #e67e22;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+  .book-card button {
+    background: #e67e22;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .book-card button:hover {
+    background: #cf711c;
+  }
+  /* Kategoriler */
+  .categories {
+    background: #ecf0f1;
+    padding: 30px 20px;
+    border-radius: 10px;
+  }
+  .categories-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .category-item {
+    background: white;
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+    color: #2c3e50;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background 0.3s, color 0.3s;
+  }
+  .category-item:hover, .category-item.active {
+    background: #e67e22;
+    color: white;
+  }
+  /* Blog Bölümü */
+  .blog-section {
+    margin: 50px 0;
+  }
+  .blog-posts {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .blog-post {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 300px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-post img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .blog-content {
+    padding: 15px;
+  }
+  .blog-content h3 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  .blog-content p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 12px;
+  }
+  .blog-content a {
+    font-weight: 600;
+    color: #e67e22;
+  }
+  /* Newsletter */
+  .newsletter {
+    background: #2c3e50;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 40px;
+  }
+  .newsletter input[type="email"] {
+    padding: 12px 20px;
+    width: 300px;
+    max-width: 90%;
+    border-radius: 30px 0 0 30px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+  }
+  .newsletter button {
+    padding: 12px 30px;
+    border-radius: 0 30px 30px 0;
+    border: none;
+    background: #e67e22;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .newsletter button:hover {
+    background: #cf711c;
+  }
+  /* Footer */
+  footer {
+    background: #1c2833;
+    color: #ccc;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 0.9rem;
+  }
+  footer a {
+    color: #e67e22;
+  }
+
+  /* Responsive */
+  @media(max-width: 768px){
+    .book-list, .blog-posts {
+      flex-direction: column;
+      align-items: center;
+    }
+    nav ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    header .container {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  }
 </style>
 </head>
 <body>
 
-<header class="container">
-  <h1>Türkiye'nin En Güzel 15 Şehri</h1>
-  <p>Tarihi, kültürel ve doğal güzellikleri keşfedin.</p>
+<!-- Header -->
+<header>
+  <div class="container">
+    <div class="logo" onclick="window.location.reload()">Kitap Dünyası</div>
+    <nav>
+      <ul>
+        <li><a href="#books">Kitaplar</a></li>
+        <li><a href="#categories">Kategoriler</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#newsletter">Abone Ol</a></li>
+      </ul>
+    </nav>
+    <div class="search-bar">
+      <input type="search" id="searchInput" placeholder="Kitap ara..." oninput="searchBooks()" />
+      <button onclick="searchBooks()">🔍</button>
+    </div>
+  </div>
 </header>
 
-<div class="search">
-  <input type="text" id="search" placeholder="Şehir ara...">
-</div>
+<!-- Hero -->
+<section class="hero">
+  <h1>En Güzel Kitaplar Burada</h1>
+  <p>Hayal dünyanıza açılan kapı. En yeni ve en popüler kitapları keşfedin.</p>
+  <button onclick="scrollToSection('books')">Kitaplara Göz At</button>
+</section>
 
-<main class="container">
+<!-- Kitaplar -->
+<section id="books" class="books-section container">
+  <h2 class="section-title">Öne Çıkan Kitaplar</h2>
+  <div class="book-list" id="bookList">
+    <!-- Kitap kartları JS ile eklenecek -->
+  </div>
+</section>
 
-  <!-- İstanbul -->
-  <section class="city-section" id="istanbul">
-    <h2>İstanbul</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Hagia_Sophia_Mars_2013.jpg" alt="İstanbul">
-    <p>Türkiye'nin en büyük ve tarihi açıdan en zengin şehri.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Blue_Mosque.JPG" alt="Sultanahmet Camii">
-        <div>
-          <h3>Sultanahmet Camii</h3>
-          <p>Mavi çinileriyle meşhur, tarihi camii.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Grand_Bazaar_in_Istanbul.jpg" alt="Kapalıçarşı">
-        <div>
-          <h3>Kapalıçarşı</h3>
-          <p>Dünyanın en eski ve büyük kapalı çarşısı.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Bosphorus_Bridge_at_night.jpg" alt="Boğaz Köprüsü">
-        <div>
-          <h3>Boğaz Köprüsü</h3>
-          <p>Asya ve Avrupa'yı bağlayan ikonik köprü.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- Kategoriler -->
+<section id="categories" class="categories container">
+  <h2 class="section-title">Kategoriler</h2>
+  <div class="categories-list" id="categoryList">
+    <!-- Kategoriler JS ile eklenecek -->
+  </div>
+</section>
 
-  <!-- Ankara -->
-  <section class="city-section" id="ankara">
-    <h2>Ankara</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ankara_Turkey_Skyline_2017.jpg" alt="Ankara">
-    <p>Türkiye'nin başkenti ve modern şehir hayatının merkezi.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Anitkabir_-_Ankara_-_Turkey_001.jpg" alt="Anıtkabir">
-        <div>
-          <h3>Anıtkabir</h3>
-          <p>Mustafa Kemal Atatürk'ün anıt mezarı.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Haci_Bayram_Mosque_-_Ankara_-_Turkey.JPG" alt="Hacı Bayram Camii">
-        <div>
-          <h3>Hacı Bayram Camii</h3>
-          <p>16. yüzyıldan kalma tarihi camii ve türbe.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Museum_of_Anatolian_Civilizations_Ankara_Turkey_02.jpg" alt="Anadolu Medeniyetleri Müzesi">
-        <div>
-          <h3>Anadolu Medeniyetleri Müzesi</h3>
-          <p>Zengin arkeolojik koleksiyonlar sunar.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- Blog -->
+<section id="blog" class="blog-section container">
+  <h2 class="section-title">Kitap Tavsiyeleri</h2>
+  <div class="blog-posts" id="blogPosts">
+    <!-- Blog yazıları JS ile eklenecek -->
+  </div>
+</section>
 
-  <!-- İzmir -->
-  <section class="city-section" id="izmir">
-    <h2>İzmir</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Konak_Square%2C_Izmir%2C_Turkey.jpg" alt="İzmir">
-    <p>Ege'nin incisi, güzel sahil şehirlerinden biri.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Ephesus_Celsus_Library.jpg" alt="Efes Antik Kenti">
-        <div>
-          <h3>Efes Antik Kenti</h3>
-          <p>Dünyaca ünlü antik Roma kenti.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Kordonboyu_%C4%B0zmir.jpg" alt="Kordon Boyu">
-        <div>
-          <h3>Kordon Boyu</h3>
-          <p>Popüler yürüyüş ve dinlenme alanı.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Agora_of_Smyrna.JPG" alt="Agora">
-        <div>
-          <h3>Agora</h3>
-          <p>Antik Roma pazarı kalıntıları.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- Newsletter -->
+<section id="newsletter" class="newsletter">
+  <h2>Haber Bültenimize Abone Olun</h2>
+  <form onsubmit="subscribe(event)">
+    <input type="email" id="emailInput" placeholder="Email adresinizi girin" required />
+    <button type="submit">Abone Ol</button>
+  </form>
+  <p>Yeni çıkan kitaplar ve kampanyalardan ilk siz haberdar olun!</p>
+</section>
 
-  <!-- Bursa -->
-  <section class="city-section" id="bursa">
-    <h2>Bursa</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Uluda%C4%9F_in_summer.jpg" alt="Bursa">
-    <p>Yeşil Bursa, tarih ve doğa güzellikleriyle ünlü.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Grand_Mosque_Bursa.jpg" alt="Ulu Camii">
-        <div>
-          <h3>Ulu Camii</h3>
-          <p>Osmanlı mimarisinin önemli örneklerinden.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Koza_Han%2C_Bursa.jpg" alt="Koza Han">
-        <div>
-          <h3>Koza Han</h3>
-          <p>Tarihi ipek pazarı.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Uludag_Winter.jpg" alt="Uludağ">
-        <div>
-          <h3>Uludağ</h3>
-          <p>Popüler kayak merkezi ve doğa harikası.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Antalya -->
-  <section class="city-section" id="antalya">
-    <h2>Antalya</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Antalya_D%C3%BCden_Waterfall.jpg" alt="Antalya">
-    <p>Akdeniz'in incisi, tarihi ve doğal güzellikleriyle büyüler.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Aspendos_Amphitheatre.jpg" alt="Aspendos Tiyatrosu">
-        <div>
-          <h3>Aspendos Tiyatrosu</h3>
-          <p>Antik tiyatronun en iyi korunmuş örneklerinden.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Antalya_Kalei%C3%A7i.jpg" alt="Kaleiçi">
-        <div>
-          <h3>Kaleiçi</h3>
-          <p>Tarihi şehir merkezi, Osmanlı sokaklarıyla dolu.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Duden_Falls_Antalya_2016.jpg" alt="Düden Şelalesi">
-        <div>
-          <h3>Düden Şelalesi</h3>
-          <p>Doğa ile iç içe güzel bir şelale.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Konya -->
-  <section class="city-section" id="konya">
-    <h2>Konya</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Mevlana_Museum.JPG" alt="Konya">
-    <p>Manevi atmosferi ve Selçuklu mirasıyla tanınır.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Tropikal_Kelebek_Bah%C3%A7esi.jpg" alt="Tropikal Kelebek Bahçesi">
-        <div>
-          <h3>Tropikal Kelebek Bahçesi</h3>
-          <p>Egzotik kelebeklerin bulunduğu doğal güzellik.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Alaaddin_hill.jpg" alt="Alaaddin Tepesi">
-        <div>
-          <h3>Alaaddin Tepesi</h3>
-          <p>Selçuklu eserlerinin çevresinde yer alan tarihi tepe.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Semazen_Dervish.jpg" alt="Mevlana Müzesi">
-        <div>
-          <h3>Mevlana Müzesi</h3>
-          <p>Mevlana Celaleddin Rumi'nin türbesi ve müzesi.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trabzon -->
-  <section class="city-section" id="trabzon">
-    <h2>Trabzon</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Trabzon_Skyline.jpg" alt="Trabzon">
-    <p>Karadeniz'in incisi, yeşil doğası ve tarihiyle bilinir.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Sumela_Monastery_Trabzon.jpg" alt="Sümela Manastırı">
-        <div>
-          <h3>Sümela Manastırı</h3>
-          <p>Kayalara oyulmuş tarihi manastır.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Uzungol_Trabzon_Turkey.JPG" alt="Uzungöl">
-        <div>
-          <h3>Uzungöl</h3>
-          <p>Doğa harikası göl ve çevresi.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Ataturk_Mansion_Trabzon.JPG" alt="Atatürk Köşkü">
-        <div>
-          <h3>Atatürk Köşkü</h3>
-          <p>Atatürk’ün kullandığı tarihi köşk.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Edirne -->
-  <section class="city-section" id="edirne">
-    <h2>Edirne</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Edirne_Selimiye_Mosque_2.jpg" alt="Edirne">
-    <p>Osmanlı mimarisinin önemli eserlerine ev sahipliği yapar.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Selimiye_Mosque_2016.jpg" alt="Selimiye Camii">
-        <div>
-          <h3>Selimiye Camii</h3>
-          <p>Mimar Sinan'ın şaheserlerinden biri.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Edirne_Old_Bazaar.JPG" alt="Edirne Eski Çarşı">
-        <div>
-          <h3>Edirne Eski Çarşı</h3>
-          <p>Tarihi ve canlı pazar alanı.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Meri%C3%A7_River_in_Edirne.jpg" alt="Meriç Nehri">
-        <div>
-          <h3>Meriç Nehri</h3>
-          <p>Şehirden geçen önemli nehir.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Çanakkale -->
-  <section class="city-section" id="canakkale">
-    <h2>Çanakkale</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Çanakkale_Skyline_2014.jpg" alt="Çanakkale">
-    <p>Tarihi Gelibolu Yarımadası ve Truva antik kenti ile bilinir.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Gelibolu_War_Cemetery_2008.jpg" alt="Gelibolu Yarımadası">
-        <div>
-          <h3>Gelibolu Yarımadası</h3>
-          <p>Tarihi savaş alanları ve anıtlar.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Troy_Antique_City_01.jpg" alt="Truva Antik Kenti">
-        <div>
-          <h3>Truva Antik Kenti</h3>
-          <p>Tarihin efsanevi kenti.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Çanakkale_Bridge_01.jpg" alt="Çanakkale Köprüsü">
-        <div>
-          <h3>Çanakkale Köprüsü</h3>
-          <p>Asya ve Avrupa'yı bağlayan dev köprü.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Mardin -->
-  <section class="city-section" id="mardin">
-    <h2>Mardin</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Mardin_Sunset_2018.jpg" alt="Mardin">
-    <p>Taş evleri ve tarihi dokusuyla Mezopotamya'nın incisi.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Deyrulzafaran_Monastery_Mardin_Turkey_2013.jpg" alt="Deyrulzafaran Manastırı">
-        <div>
-          <h3>Deyrulzafaran Manastırı</h3>
-          <p>Tarihi Süryani manastırı, kültürel zenginlik.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Mardin_old_town.jpg" alt="Mardin Eski Şehir">
-        <div>
-          <h3>Mardin Eski Şehir</h3>
-          <p>Dar sokakları, taş evleri ve panoramik manzarası.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Zinciriye_Medresesi_Mardin_2014.jpg" alt="Zinciriye Medresesi">
-        <div>
-          <h3>Zinciriye Medresesi</h3>
-          <p>Selçuklu döneminden kalma tarihi eğitim kurumu.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gaziantep -->
-  <section class="city-section" id="gaziantep">
-    <h2>Gaziantep</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Gaziantep_Town_Center.jpg" alt="Gaziantep">
-    <p>Lezzetli yemekleri ve zengin tarihiyle ünlü şehir.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Gaziantep_Castle.JPG" alt="Gaziantep Kalesi">
-        <div>
-          <h3>Gaziantep Kalesi</h3>
-          <p>Tarih boyunca önemli bir savunma noktası.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Gaziantep_Zoo_and_Botanical_Park.jpg" alt="Gaziantep Hayvanat Bahçesi">
-        <div>
-          <h3>Gaziantep Hayvanat Bahçesi</h3>
-          <p>Doğa ve hayvan severler için güzel bir park.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Zeugma_Mosaic_Museum.JPG" alt="Zeugma Mozaik Müzesi">
-        <div>
-          <h3>Zeugma Mozaik Müzesi</h3>
-          <p>Dünyanın en büyük mozaik müzelerinden biri.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Kayseri -->
-  <section class="city-section" id="kayseri">
-    <h2>Kayseri</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/37/Kayseri_City_Center_2018.jpg" alt="Kayseri">
-    <p>Tarihi ve doğal güzellikleriyle İç Anadolu'nun önemli şehri.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Kayseri_Castle_2017.JPG" alt="Kayseri Kalesi">
-        <div>
-          <h3>Kayseri Kalesi</h3>
-          <p>Şehrin simgelerinden tarihi kale.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Erciyes_Mountain_Turkey_2015.JPG" alt="Erciyes Dağı">
-        <div>
-          <h3>Erciyes Dağı</h3>
-          <p>Kış sporları için popüler bir dağ.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Gevenlik_Medresesi_Kayseri.jpg" alt="Gevenlik Medresesi">
-        <div>
-          <h3>Gevenlik Medresesi</h3>
-          <p>Selçuklu mimarisinin güzel örneklerinden.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Adana -->
-  <section class="city-section" id="adana">
-    <h2>Adana</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/Adana_Skyline_2019.jpg" alt="Adana">
-       <p>Lezzetli mutfağı ve tarihi yapılarıyla Akdeniz bölgesinin önemli kenti.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Adana_Bridge_and_Beyazit_Mosque_2011.JPG" alt="Taşköprü">
-        <div>
-          <h3>Taşköprü</h3>
-          <p>Roma döneminden kalma tarihi köprü.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Adana_Sabanci_Merkez_Camii_2010.jpg" alt="Sabancı Merkez Camii">
-        <div>
-          <h3>Sabancı Merkez Camii</h3>
-          <p>Türkiye'nin en büyük camilerinden biri.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Adana_Tasarim_Merkezi.jpg" alt="Atatürk Parkı">
-        <div>
-          <h3>Atatürk Parkı</h3>
-          <p>Şehrin en büyük ve en yeşil parkı.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Samsun -->
-  <section class="city-section" id="samsun">
-    <h2>Samsun</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Samsun_Skyline.jpg" alt="Samsun">
-    <p>Kuzey Anadolu'nun önemli liman ve ticaret şehri.</p>
-    <div class="place-list">
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Ataturk_Monument_Samsun.jpg" alt="Atatürk Anıtı">
-        <div>
-          <h3>Atatürk Anıtı</h3>
-          <p>Milli mücadeleye ev sahipliği yapan simge anıt.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Samsun_Archaeology_Museum.JPG" alt="Samsun Arkeoloji Müzesi">
-        <div>
-          <h3>Samsun Arkeoloji Müzesi</h3>
-          <p>Zengin tarihi eser koleksiyonuna sahiptir.</p>
-        </div>
-      </div>
-      <div class="place-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bandirma_City_Center_2020.jpg" alt="Bandırma">
-        <div>
-          <h3>Bandırma</h3>
-          <p>Deniz kıyısında güzel bir tatil ve turizm merkezi.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
+<!-- Footer -->
 <footer>
-  © 2025 Türkiye Gezi Rehberi | Tüm hakları saklıdır.
+  <p>© 2025 Kitap Dünyası | <a href="mailto:iletisim@kitapdunyasi.com">iletisim@kitapdunyasi.com</a></p>
 </footer>
 
 <script>
-  const searchInput = document.getElementById('search');
-  searchInput.addEventListener('input', () => {
-    const filter = searchInput.value.toLowerCase();
-    document.querySelectorAll('.city-section').forEach(city => {
-      const cityName = city.id.toLowerCase();
-      city.style.display = cityName.includes(filter) ? 'block' : 'none';
-    });
-  });
-</script>
+  const books = [
+    {
+      title: "Sefiller",
+      author: "Victor Hugo",
+      desc: "Fransız yazar Victor Hugo'nun klasikleşmiş eseri, hayatın zorluklarını ve umudu anlatır.",
+      price: "45₺",
+      img: "https://images-na.ssl-images-amazon.com/images/I/81XJ1H0M64L.jpg",
+      category: "Klasik"
+    },
+    {
+      title: "Simyacı",
+      author: "Paulo Coelho",
+      desc: "Kişisel efsanenizi keşfetme yolunda sihirli bir hikaye.",
+      price: "38₺",
+      img: "https://cdn.kitapambari.com/2020/01/Paulo-Coelho-Simyaci.jpg",
+      category: "Felsefe"
+    },
+    {
+      title: "Harry Potter ve Felsefe Taşı",
+      author: "J.K. Rowling",
+      desc: "Harry Potter serisinin ilk kitabı, büyü ve macera dolu dünyaya giriş.",
+      price: "60₺",
+      img: "https://cdn.dribbble.com/users/1078340/screenshots/3135214/harrypotter.png",
+      category: "Fantastik"
+    },
+    {
+      title: "Kürk Mantolu Madonna",
+      author: "Sabahattin Ali",
+      desc: "Tutkulu ve hüzünlü bir aşk hikayesi.",
+      price: "30₺",
+      img: "https://cdn.kitapambari.com/2017/06/Kürk-Mantolu-Madonna.jpg",
+      category: "Roman"
+    },
+    {
+      title: "1984",
+      author: "George Orwell",
+      desc: "Distopik bir gelecekte totaliter rejimin korkunç portresi.",
+      price: "42₺",
+      img: "https://cdn.dribbble.com/users/1234567/screenshots/7654321/1984-book-cover.png",
+      category: "Bilim Kurgu"
+    }
+  ];
 
-</body>
-</html>
+  const categories = [...new Set(books.map(book => book.category))];
+
+  const blogs = [
+    {
+      title: "2025'in En Çok Okunan Kitapları",
+      desc: "Bu yıl en çok satan ve beğenilen kitapları keşfedin.",
+      img: "https://images.unsplash.com/photo-1516972810927-80185027ca84?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      title: "Okuma Alışkanlığınızı Artırmanın Yolları",
+      desc: "Günlük hayatınıza kitap okumayı nasıl entegre edebilirsiniz?",
+      img: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      title: "Klasik Edebiyatın Büyüsü",
+      desc: "Neden klasik kitaplar hala vazgeçilmezdir?",
+      img: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=600&q=80"
+    }
+  ];
+
+  // Kitapları göster
+  const bookList = document.getElementById('bookList');
+  function displayBooks(list) {
+    bookList.innerHTML = '';
+    if(list.length === 0){
+      bookList.innerHTML = '<p style="text-align:center; width:100%;">Aradığınız kriterlerde kitap bulunamadı.</p>';
+      return;
+    }
+    list.forEach(book => {
+      const card = document.createElement('div');
+      card.className = 'book-card';
+      card.innerHTML = `
+        <img src="${book.img}" alt="${book.title}" />
+        <div class="book-content">
+          <div class="book-title">${book.title}</div>
+          <div class="book-author">by ${book.author}</div>
+          <div class="book-desc">${book.desc}</div>
+          <div class="book-price">${book.price}</div>
+          <button onclick="alert('Sepete eklendi: ${book.title}')">Sepete Ekle</button>
+        </div>
+      `;
+      bookList.appendChild(card);
+    });
+  }
+  displayBooks(books);
+
+  // Kategorileri göster
+  const categoryList = document.getElementById('categoryList');
+  function displayCategories(){
+    categories.forEach(cat => {
+      const catDiv = document.createElement('div');
+      catDiv.className = 'category-item';
+      catDiv.textContent = cat;
+      catDiv.onclick = () => {
+        document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+        catDiv.classList.add('active');
+        if(cat === 'Tümü'){
+          displayBooks(books);
+        } else {
+          displayBooks(books.filter(b => b.category === cat));
+        }
+      }
+      categoryList.appendChild(catDiv);
+    });
+    // "Tümü" butonunu başa ekle
+    const allBtn = document.createElement('div');
+    allBtn.className = 'category-item active';
+    allBtn.textContent = 'Tümü';
+    allBtn.onclick = () => {
+      document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+      allBtn.classList.add('active');
+      displayBooks(books);
+    }
+    categoryList.prepend
